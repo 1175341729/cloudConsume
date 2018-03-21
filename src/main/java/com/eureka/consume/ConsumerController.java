@@ -1,5 +1,6 @@
 package com.eureka.consume;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -20,6 +21,9 @@ public class ConsumerController {
     @Resource
     private LoadBalancerClient loadBalancerClient;
 
+    @Value("${server.port}")
+    private long serverPort;
+
     @GetMapping("/consume")
     public String consume(){
         ServiceInstance serviceInstance = loadBalancerClient.choose("service-hi");
@@ -30,8 +34,6 @@ public class ConsumerController {
 
     @GetMapping("/consumeActive")
     public String consumeActive() throws InterruptedException {
-        Thread.sleep(5000L);
-        System.out.println(123);
-        return "consume";
+        return serverPort + "";
     }
 }
