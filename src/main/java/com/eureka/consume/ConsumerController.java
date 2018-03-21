@@ -29,7 +29,8 @@ public class ConsumerController {
     }
 
     @GetMapping("/consumeActive")
-    public String consumeActive(){
+    public String consumeActive() throws InterruptedException {
+        Thread.sleep(5000L);
         System.out.println(123);
         return "consume";
     }
