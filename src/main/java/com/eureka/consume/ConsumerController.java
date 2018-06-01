@@ -24,6 +24,9 @@ public class ConsumerController {
     @Value("${server.port}")
     private long serverPort;
 
+    @Value("${name}")
+    private String name;
+
     @GetMapping("/consume")
     public String consume(){
         ServiceInstance serviceInstance = loadBalancerClient.choose("service-hi");
@@ -35,5 +38,15 @@ public class ConsumerController {
     @GetMapping("/consumeActive")
     public String consumeActive() throws InterruptedException {
         return serverPort + "";
+    }
+
+    @GetMapping("/port")
+    public Long port(){
+        return serverPort;
+    }
+
+    @GetMapping("/name")
+    public String name(){
+        return name;
     }
 }
